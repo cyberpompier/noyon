@@ -1,8 +1,8 @@
-.vehicles-page {
+.materials-page {
   padding: 20px;
 }
 
-.vehicles-header {
+.materials-header {
   background-color: #ff5733;
   color: white;
   padding: 15px;
@@ -28,9 +28,7 @@ ul {
   padding: 0;
 }
 
-.vehicle-card {
-  display: flex;
-  align-items: center;
+.material-card {
   margin-bottom: 20px;
   padding: 10px;
   border: 1px solid #ddd;
@@ -38,22 +36,14 @@ ul {
   background-color: #fff;
 }
 
-.vehicle-photo {
-  max-width: 150px;
-  height: auto;
-  border-radius: 5px;
-  margin-right: 15px;
-  object-fit: cover; /* Ensure the image fits well */
-}
-
-.vehicle-info {
+.material-info {
   flex: 1;
 }
 
-.vehicle-info h3 {
+.material-info h3 {
   margin: 0 0 10px 0;
 }
 
-.vehicle-info p {
+.material-info p {
   margin: 5px 0;
 }
