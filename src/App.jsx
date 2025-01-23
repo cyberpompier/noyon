@@ -49,7 +49,14 @@ function App() {
           onMaterialsClick={() => setPage('materials')}
         />
       )}
-      {page === 'settings' && <SettingsPage onBackClick={() => setPage('profile')} onAddVehicle={addVehicle} onAddMaterial={addMaterial} />}
+      {page === 'settings' && (
+        <SettingsPage
+          onBackClick={() => setPage('profile')}
+          onAddVehicle={addVehicle}
+          onAddMaterial={addMaterial}
+          vehicles={vehicles} // Pass vehicles to SettingsPage
+        />
+      )}
       {page === 'vehicles' && <VehiclesPage vehicles={vehicles} onClose={() => setPage('profile')} />}
       {page === 'materials' && <MaterialsPage materials={materials} onClose={() => setPage('profile')} />}
       {page === 'home' && (

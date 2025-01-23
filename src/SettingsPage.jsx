@@ -1,22 +1,43 @@
 import React, { useState } from 'react';
 import './SettingsPage.css';
 
-function SettingsPage({ onBackClick, onAddVehicle, onAddMaterial }) {
+function SettingsPage({ onBackClick, onAddVehicle, onAddMaterial, vehicles }) {
   const [type, setType] = useState('Véhicule');
   const [denomination, setDenomination] = useState('');
   const [immatriculation, setImmatriculation] = useState('');
-  const [vehicleType, setVehicleType] = useState('INCENDIE'); // New state for vehicle type
+  const [vehicleType, setVehicleType] = useState('INCENDIE');
   const [documentation, setDocumentation] = useState('');
   const [photo, setPhoto] = useState('');
   const [quantity, setQuantity] = useState('');
+  const [affection, setAffection] = useState('');
+  const [emplacement, setEmplacement] = useState('');
+
+  // Mapping of vehicle types to emplacement options
+  const emplacementOptions = {
+    FPT: ['Cabine', 'Canine AR','Coffre AVG','Coffre MG','Coffre ARG','Coffre AVD','Coffre MG','Coffre ARG','Rideau AR','Toit'],
+    EPA: ['Cabine', 'Cellule','Plateforme','Coffre AVG','Coffre MG','Coffre ARG','Coffre AVD','Coffre MD','Coffre ARD'],
+    VSAV: ['Cabine', 'Coffre G','Coffre D','Cellule','Cellule ARG','Cellule MG','Cellule AVG','Cellule ARD','Cellule MD','Cellule AVD','Tiroir VERT','Tiroir ROUGE','Tiroir ORANGE','Tiroir Blanc'],
+    VSR: ['Cabine', 'Canine AR','Coffre AVG','Coffre MG','Coffre ARG','Coffre AVD','Coffre MG','Coffre ARG','Rideau']
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (type === 'Véhicule') {
       onAddVehicle({ denomination, immatriculation, vehicleType, documentation, photo });
     } else if (type === 'Matériel') {
-      onAddMaterial({ denomination, quantity, documentation, photo });
+      onAddMaterial({ denomination, quantity, affection, emplacement, documentation, photo });
     }
+  };
+
+  // Determine emplacement options based on affection
+  const getEmplacementOptions = () => {
+    if (affection.startsWith('FPT')) {
+      return emplacementOptions['FPT'];
+    }
+    if (affection.startsWith('VSAV')) {
+      return emplacementOptions['VSAV'];
+    }
+    return emplacementOptions[affection] || [];
   };
 
   return (
@@ -54,10 +75,30 @@ function SettingsPage({ onBackClick, onAddVehicle, onAddMaterial }) {
           </>
         )}
         {type === 'Matériel' && (
-          <div className="form-group">
-            <label>Quantité:</label>
-            <input type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
-          </div>
+          <>
+            <div className="form-group">
+              <label>Quantité:</label>
+              <input type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
+            </div>
+            <div className="form-group">
+              <label>Affection:</label>
+              <select value={affection} onChange={(e) => setAffection(e.target.value)}>
+                <option value="">-- Select Vehicle --</option>
+                {vehicles.map((vehicle, index) => (
+                  <option key={index} value={vehicle.denomination}>{vehicle.denomination}</option>
+                ))}
+              </select>
+            </div>
+            <div className="form-group">
+              <label>Emplacement:</label>
+              <select value={emplacement} onChange={(e) => setEmplacement(e.target.value)}>
+                <option value="">-- Select Emplacement --</option>
+                {getEmplacementOptions().map((option, index) => (
+                  <option key={index} value={option}>{option}</option>
+                ))}
+              </select>
+            </div>
+          </>
         )}
         <div className="form-group">
           <label>Lien vers la documentation:</label>
