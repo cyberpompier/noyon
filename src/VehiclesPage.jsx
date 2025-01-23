@@ -11,7 +11,7 @@ function VehiclesPage({ vehicles, onClose }) {
       <ul>
         {vehicles.map((vehicle, index) => (
           <li key={index} className="vehicle-card">
-            <img src={vehicle.photo} alt={vehicle.denomination} className="vehicle-photo" />
+            <img src={vehicle.photo || 'default-image-url.jpg'} alt={vehicle.denomination} className="vehicle-photo" />
             <div className="vehicle-info">
               <h3>{vehicle.denomination}</h3>
               <p>Immatriculation: {vehicle.immatriculation}</p>

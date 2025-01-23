@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import './SettingsPage.css';
 
-function SettingsPage({ onBackClick, onAddVehicle }) {
+function SettingsPage({ onBackClick, onAddVehicle, onAddMaterial }) {
   const [type, setType] = useState('Véhicule');
   const [denomination, setDenomination] = useState('');
   const [immatriculation, setImmatriculation] = useState('');
+  const [vehicleType, setVehicleType] = useState('INCENDIE'); // New state for vehicle type
   const [documentation, setDocumentation] = useState('');
   const [photo, setPhoto] = useState('');
-  const [quantity, setQuantity] = useState(''); // New state for quantity
+  const [quantity, setQuantity] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (type === 'Véhicule') {
-      onAddVehicle({ denomination, immatriculation, documentation, photo });
+      onAddVehicle({ denomination, immatriculation, vehicleType, documentation, photo });
     } else if (type === 'Matériel') {
-      onAddVehicle({ denomination, quantity, documentation, photo }); // Include quantity
+      onAddMaterial({ denomination, quantity, documentation, photo });
     }
   };
 
@@ -36,16 +37,26 @@ function SettingsPage({ onBackClick, onAddVehicle }) {
           <label>Dénomination:</label>
           <input type="text" value={denomination} onChange={(e) => setDenomination(e.target.value)} />
         </div>
-        {type === 'Matériel' && ( // Show quantity field only for Matériel
+        {type === 'Véhicule' && (
+          <>
+            <div className="form-group">
+              <label>Immatriculation:</label>
+              <input type="text" value={immatriculation} onChange={(e) => setImmatriculation(e.target.value)} />
+            </div>
+            <div className="form-group">
+              <label>Type de véhicule:</label>
+              <select value={vehicleType} onChange={(e) => setVehicleType(e.target.value)}>
+                <option>INCENDIE</option>
+                <option>SANITAIRE</option>
+                <option>OPERATION DIV.</option>
+              </select>
+            </div>
+          </>
+        )}
+        {type === 'Matériel' && (
           <div className="form-group">
             <label>Quantité:</label>
             <input type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
-          </div>
-        )}
-        {type === 'Véhicule' && (
-          <div className="form-group">
-            <label>Immatriculation:</label>
-            <input type="text" value={immatriculation} onChange={(e) => setImmatriculation(e.target.value)} />
           </div>
         )}
         <div className="form-group">

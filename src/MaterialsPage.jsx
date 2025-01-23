@@ -11,6 +11,7 @@ function MaterialsPage({ materials, onClose }) {
       <ul>
         {materials.map((material, index) => (
           <li key={index} className="material-card">
+            <img src={material.photo || 'default-image-url.jpg'} alt={material.denomination} className="material-photo" />
             <div className="material-info">
               <h3>{material.denomination}</h3>
               <p>Quantité: {material.quantity}</p>

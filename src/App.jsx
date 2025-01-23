@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { db } from './firebaseConfig';
 import HomePage from './HomePage';
 import ProfilePage from './ProfilePage';
 import SettingsPage from './SettingsPage';
@@ -10,12 +12,29 @@ function App() {
   const [vehicles, setVehicles] = useState([]);
   const [materials, setMaterials] = useState([]);
 
-  const addVehicle = (vehicle) => {
+  useEffect(() => {
+    const fetchVehicles = async () => {
+      const querySnapshot = await getDocs(collection(db, 'vehicles'));
+      setVehicles(querySnapshot.docs.map(doc => doc.data()));
+    };
+
+    const fetchMaterials = async () => {
+      const querySnapshot = await getDocs(collection(db, 'materials'));
+      setMaterials(querySnapshot.docs.map(doc => doc.data()));
+    };
+
+    fetchVehicles();
+    fetchMaterials();
+  }, []);
+
+  const addVehicle = async (vehicle) => {
+    await addDoc(collection(db, 'vehicles'), vehicle);
     setVehicles([...vehicles, vehicle]);
     setPage('vehicles');
   };
 
-  const addMaterial = (material) => {
+  const addMaterial = async (material) => {
+    await addDoc(collection(db, 'materials'), material);
     setMaterials([...materials, material]);
     setPage('materials');
   };
