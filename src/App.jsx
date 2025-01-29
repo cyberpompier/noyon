@@ -6,9 +6,11 @@ import ProfilePage from './ProfilePage';
 import SettingsPage from './SettingsPage';
 import VehiclesPage from './VehiclesPage';
 import MaterialsPage from './MaterialsPage';
+import LoginPage from './LoginPage';
+import './App.css';
 
 function App() {
-  const [page, setPage] = useState('home');
+  const [page, setPage] = useState('login');
   const [vehicles, setVehicles] = useState([]);
   const [materials, setMaterials] = useState([]);
 
@@ -41,29 +43,29 @@ function App() {
 
   return (
     <div className="app">
-      {page === 'home' && <HomePage onGoClick={() => setPage('profile')} />}
-      {page === 'profile' && (
-        <ProfilePage
+      {page === 'login' && <LoginPage onLoginSuccess={() => setPage('home')} />}
+      {page === 'home' && (
+        <HomePage
+          onGoClick={() => setPage('profile')}
           onSettingsClick={() => setPage('settings')}
           onVehiclesClick={() => setPage('vehicles')}
           onMaterialsClick={() => setPage('materials')}
         />
       )}
+      {page === 'profile' && <ProfilePage onBackClick={() => setPage('home')} />}
       {page === 'settings' && (
         <SettingsPage
-          onBackClick={() => setPage('profile')}
+          onBackClick={() => setPage('home')}
           onAddVehicle={addVehicle}
           onAddMaterial={addMaterial}
           vehicles={vehicles} // Pass vehicles to SettingsPage
         />
       )}
-      {page === 'vehicles' && <VehiclesPage vehicles={vehicles} onClose={() => setPage('profile')} />}
-      {page === 'materials' && <MaterialsPage materials={materials} onClose={() => setPage('profile')} />}
-      {page === 'home' && (
-        <footer>
-          Bienvenu dans l'application de vérification des inventaires des véhicules sapeur pompier.
-        </footer>
-      )}
+      {page === 'vehicles' && <VehiclesPage vehicles={vehicles} onClose={() => setPage('home')} />}
+      {page === 'materials' && <MaterialsPage materials={materials} onClose={() => setPage('home')} />}
+      <footer className="app-footer">
+        &copy; 2023 Fire Truck Inventory. All rights reserved.
+      </footer>
     </div>
   );
 }

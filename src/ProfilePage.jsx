@@ -1,48 +1,51 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { getAuth } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from './firebaseConfig';
 import './ProfilePage.css';
 
-function ProfilePage({ onSettingsClick, onVehiclesClick, onMaterialsClick }) {
+function ProfilePage({ onBackClick }) {
+  const [userData, setUserData] = useState(null);
+  const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const auth = getAuth();
+      const user = auth.currentUser;
+      if (user) {
+        try {
+          const docRef = doc(db, 'users', user.uid);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            setUserData(docSnap.data());
+          } else {
+            setMessage('No user data found.');
+          }
+        } catch (error) {
+          setMessage('Error retrieving user data.');
+        }
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
   return (
     <div className="profile-page">
       <div className="profile-header">
-        <img src="profile.jpg" alt="Profile" className="profile-picture" />
-        <div className="profile-info">
-          <h2>John Doe</h2>
-          <p>Captain</p>
-        </div>
+        <h2>Profile</h2>
       </div>
-      <ul className="profile-menu">
-        <li>
-          <a href="#" className="clickable">
-            <span className="icon">🔑</span>
-            <span>Connexion</span>
-          </a>
-        </li>
-        <li>
-          <a href="#" className="clickable">
-            <span className="icon">📋</span>
-            <span>Inventaire</span>
-          </a>
-        </li>
-        <li>
-          <a href="#" className="clickable" onClick={onVehiclesClick}>
-            <span className="icon">🚒</span>
-            <span>Véhicules</span>
-          </a>
-        </li>
-        <li>
-          <a href="#" className="clickable" onClick={onMaterialsClick}>
-            <span className="icon">🛠️</span>
-            <span>Matériels</span>
-          </a>
-        </li>
-        <li>
-          <a href="#" className="clickable" onClick={onSettingsClick}>
-            <span className="icon">⚙️</span>
-            <span>Parametres</span>
-          </a>
-        </li>
-      </ul>
+      {userData ? (
+        <div className="profile-info">
+          <p><strong>Nom:</strong> {userData.nom}</p>
+          <p><strong>Prénom:</strong> {userData.prenom}</p>
+          <p><strong>Grade:</strong> {userData.grade}</p>
+          <img src={userData.photo} alt="Profile" className="profile-photo" />
+        </div>
+      ) : (
+        <p>{message}</p>
+      )}
+      <button className="back-button" onClick={onBackClick}>✖</button>
     </div>
   );
 }

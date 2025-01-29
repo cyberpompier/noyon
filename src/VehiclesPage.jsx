@@ -16,7 +16,6 @@ function VehiclesPage({ vehicles, onClose }) {
     <div className="vehicles-page">
       <div className="vehicles-header">
         <h2>Véhicules</h2>
-        <button className="close-button" onClick={onClose}>✖</button>
       </div>
       <ul>
         {vehicles.map((vehicle, index) => (
@@ -47,6 +46,7 @@ function VehiclesPage({ vehicles, onClose }) {
           </div>
         </div>
       )}
+      <button className="close-button" onClick={onClose}>✖</button>
     </div>
   );
 }

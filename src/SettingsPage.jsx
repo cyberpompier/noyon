@@ -12,7 +12,6 @@ function SettingsPage({ onBackClick, onAddVehicle, onAddMaterial, vehicles }) {
   const [affection, setAffection] = useState('');
   const [emplacement, setEmplacement] = useState('');
 
-  // Mapping of vehicle types to emplacement options
   const emplacementOptions = {
     FPT: ['Cabine', 'Canine AR','Coffre AVG','Coffre MG','Coffre ARG','Coffre AVD','Coffre MG','Coffre ARG','Rideau AR','Toit'],
     EPA: ['Cabine', 'Cellule','Plateforme','Coffre AVG','Coffre MG','Coffre ARG','Coffre AVD','Coffre MD','Coffre ARD'],
@@ -29,7 +28,6 @@ function SettingsPage({ onBackClick, onAddVehicle, onAddMaterial, vehicles }) {
     }
   };
 
-  // Determine emplacement options based on affection
   const getEmplacementOptions = () => {
     if (affection.startsWith('FPT')) {
       return emplacementOptions['FPT'];
@@ -44,7 +42,6 @@ function SettingsPage({ onBackClick, onAddVehicle, onAddMaterial, vehicles }) {
     <div className="settings-page">
       <div className="settings-header">
         <h2>Ajouter un {type.toLowerCase()}</h2>
-        <button className="back-button" onClick={onBackClick}>✖</button>
       </div>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -110,6 +107,7 @@ function SettingsPage({ onBackClick, onAddVehicle, onAddMaterial, vehicles }) {
         </div>
         <button type="submit">Ajouter</button>
       </form>
+      <button className="back-button" onClick={onBackClick}>✖</button>
     </div>
   );
 }

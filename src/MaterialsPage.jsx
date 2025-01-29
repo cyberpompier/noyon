@@ -16,7 +16,6 @@ function MaterialsPage({ materials, onClose }) {
     <div className="materials-page">
       <div className="materials-header">
         <h2>Matériels</h2>
-        <button className="close-button" onClick={onClose}>✖</button>
       </div>
       <ul>
         {materials.map((material, index) => (
@@ -47,6 +46,7 @@ function MaterialsPage({ materials, onClose }) {
           </div>
         </div>
       )}
+      <button className="close-button" onClick={onClose}>✖</button>
     </div>
   );
 }

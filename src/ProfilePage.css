@@ -1,58 +1,68 @@
 .profile-page {
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-    .profile-header {
-      background-color: #ff5733;
-      color: white;
-      padding: 20px;
-      display: flex;
-      align-items: center;
-      border-radius: 10px 10px 0 0;
-    }
+.profile-header {
+  background-color: #ff5733;
+  color: white;
+  padding: 15px;
+  border-radius: 10px 10px 0 0;
+  text-align: center;
+  position: relative;
+}
 
-    .profile-picture {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      margin-right: 15px;
-    }
+.back-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
 
-    .profile-info {
-      display: flex;
-      flex-direction: column;
-    }
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
 
-    .profile-menu {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
+.form-group {
+  margin-bottom: 15px;
+}
 
-    .profile-menu li {
-      padding: 0;
-      border-bottom: 1px solid #ddd;
-    }
+label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  display: block;
+}
 
-    .clickable {
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      align-items: center;
-      padding: 15px;
-    }
+input {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  width: 100%;
+}
 
-    .clickable:hover {
-      background-color: #f0f0f0;
-    }
+.validate-button {
+  padding: 10px;
+  background-color: #ff5733;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
 
-    .icon {
-      margin-right: 10px;
-    }
+.validate-button:hover {
+  background-color: #e04e2a;
+}
 
-    .profile-menu span {
-      text-align: left;
-    }
+.success-message {
+  color: green;
+  margin-top: 10px;
+}
